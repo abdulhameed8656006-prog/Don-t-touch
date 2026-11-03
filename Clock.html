@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Clock</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<style>
+:root { --bg:#ffffff; --fg:#111111; --dim:#777777; color-scheme: light dark; box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#000000; --fg:#f5f5f5; --dim:#8a8a8a; } }
+:root[data-theme="dark"] { --bg:#000000; --fg:#f5f5f5; --dim:#8a8a8a; }
+html, body { height:100%; margin:0; background:var(--bg); color:var(--fg); font-family:-apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+body { display:flex; align-items:center; justify-content:center; }
+.clock { display:flex; align-items:baseline; gap:.15em; font-variant-numeric:tabular-nums; }
+#time { font-size:min(22vw, 30vh); font-weight:300; letter-spacing:-.02em; }
+#ampm { font-size:min(7vw, 10vh); font-weight:400; color:var(--dim); }
+</style>
+</head>
+<body>
+<div class="clock"><span id="time">--:--</span><span id="ampm"></span></div>
+<script>
+function tick() {
+  var d = new Date(), h = d.getHours(), m = d.getMinutes();
+  var ap = h >= 12 ? "PM" : "AM";
+  h = h % 12 || 12;
+  document.getElementById("time").textContent = h + ":" + (m < 10 ? "0" : "") + m;
+  document.getElementById("ampm").textContent = ap;
+}
+tick();
+setInterval(tick, 1000);
+</script>
+</body>
+</html>
